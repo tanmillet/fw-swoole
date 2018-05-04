@@ -17,5 +17,3 @@ include(ROOT_PATH . '/helper.php');
 //获取上下文执行环境
 define('ENV', Libs_Conf::get('ENV', 'app'));
 define('ENV_FILE', Libs_Conf::get('ENV', 'app'));
-
-
