@@ -2,6 +2,23 @@
 
 class Libs_Tools {
 
+    /**
+     * API 输出格式
+     * @param $status
+     * @param string $message
+     * @param array $data
+     */
+    public static function show($status, $message = '', $data = [])
+    {
+        $result = [
+            'status' => $status,
+            'message' => $message,
+            'data' => $data,
+        ];
+
+        echo json_encode($result);
+    }
+
     public static function bigIntval($value)
     {
         $value = trim($value);

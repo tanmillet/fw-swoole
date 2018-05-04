@@ -70,7 +70,7 @@ class PsApi extends Sys_Ctr {
      * @param $output_data
      * @return string
      */
-    public function responseSuccess($output_data = [])
+    public function responseSuccess($output_data)
     {
         return $this->response([
             'status' => 'succeed',
