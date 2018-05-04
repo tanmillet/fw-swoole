@@ -6,7 +6,7 @@ return [
 
     'DEBUG' => false,
     'LOG_DIR' => '/data/log/project',
-    'LOG_DIR_PREFIX' =>'ps.fwswoole.com',
+    'LOG_DIR_PREFIX' => 'swoole_log',
 
     'redis_servers' => '127.0.0.1:6379',
     /*
