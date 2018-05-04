@@ -3,8 +3,8 @@
 class Libs_SwWs {
 
     CONST HOST = "0.0.0.0";
-    CONST PORT = 8811;
-    CONST CHART_PORT = 8812;
+    CONST PORT = 9988;
+    CONST CHART_PORT = 9989;
 
     public $ws = null;
 

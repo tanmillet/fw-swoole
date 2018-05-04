@@ -7,6 +7,7 @@ return [
     'route_map' => [
         'psuser' => 'PsUser',
         'home' => 'Home',
+        'live' => 'Live',
     ],
     'no_need_check_session' => [
         'PsUser' => [
