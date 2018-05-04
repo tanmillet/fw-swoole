@@ -162,31 +162,31 @@ class Libs_SwHttp {
             die();
         }
 
-        session_start();
-        $user_info = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-        if (isNeedCheckSession($controller, $action) && empty($user_info)) { // 是否需要身份校验
-            echo $ps_api->responseError(10002);
-            die();
-        }
+//        session_start();
+//        $user_info = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+//        if (isNeedCheckSession($controller, $action) && empty($user_info)) { // 是否需要身份校验
+//            echo $ps_api->responseError(10002);
+//            die();
+//        }
 
         $class_name = $controller;
         $data['uri_segment'] = $uri_segment;
-        $data['current_user_info'] = $user_info;
-        $GLOBALS['uid'] = isset($user_info['uid']) ? $user_info['uid'] : 0;
+//        $data['current_user_info'] = $user_info;
+//        $GLOBALS['uid'] = isset($user_info['uid']) ? $user_info['uid'] : 0;
         $o = new $class_name($data);
         if (!method_exists($o, $action)) {
             echo $ps_api->responseError(10001);
             die();
         }
 
-        if (isNeedCheckSession($controller, $action)) { // 判断用户是否有访问的权限
-            $auth_model = new Models_Auth();
-            $user_auth = $auth_model->isUserCanAccess($user_info['uid'], $controller, $action);
-            if (!$user_auth) {
-                echo $ps_api->responseError(10037);
-                die();
-            }
-        }
+//        if (isNeedCheckSession($controller, $action)) { // 判断用户是否有访问的权限
+//            $auth_model = new Models_Auth();
+//            $user_auth = $auth_model->isUserCanAccess($user_info['uid'], $controller, $action);
+//            if (!$user_auth) {
+//                echo $ps_api->responseError(10037);
+//                die();
+//            }
+//        }
 
         $o->$action();
 

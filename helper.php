@@ -10,9 +10,13 @@ if (!function_exists('addslashes_deep')) {
     {
         if (empty($value)) {
             return $value;
-        } else {
-            return is_array($value) ? array_map('addslashes_deep', $value) : addslashes($value);
+        } else if (is_array($value)) {
+            return array_map('addslashes_deep', $value);
+        } else if (is_string($value)) {
+            return addslashes($value);
         }
+
+        return $value;
     }
 }
 /*
