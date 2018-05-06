@@ -17,7 +17,7 @@ class Libs_SwWs {
         $this->ws->set(
             [
                 'enable_static_handler' => true,
-                'document_root' => "/ws/soft/app/fw-swoole/public/static",
+                'document_root' => "/apps/ws/fw-swoole/public/static",
                 'worker_num' => 4,
                 'task_worker_num' => 4,
             ]
@@ -107,11 +107,11 @@ class Libs_SwWs {
         date_default_timezone_set('Asia/Shanghai');
         ini_set('default_charset', "utf-8");
 
-        if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
-            define('IS_AJAX', true);
-        } else {
-            define('IS_AJAX', false);
-        }
+//        if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+//            define('IS_AJAX', true);
+//        } else {
+//            define('IS_AJAX', false);
+//        }
         if (isset($_SERVER['REDIRECT_URL'])) {
             $uri_info = $_SERVER['REDIRECT_URL'];
         } elseif (isset($_SERVER['REQUEST_URI'])) {
@@ -119,30 +119,39 @@ class Libs_SwWs {
         } elseif (isset($_SERVER['PATH_INFO'])) {
             $uri_info = $_SERVER['PATH_INFO'];
         }
-        if (strpos($uri_info, '?')) {
-            $uri_info = Libs_Tools::leftString('?', $uri_info);
-        }
-        $GLOBALS['request_uri_info'] = $uri_info;
-        $uri_segment = [];
 
-        if ($uri_info) {
-            $uri_info = rtrim($uri_info, "/") . "/";    // 无论是否/结尾,统一按照/结尾
-            $aPathInfo = explode('/', trim($uri_info, "/"));    // 获取 pathinfo
-            $controller = (isset($aPathInfo[0]) ? $aPathInfo[0] : 'home');    // 获取 control
-            array_shift($aPathInfo);
-            $action = (isset($aPathInfo[0]) ? $aPathInfo[0] : 'index');   // 获取 action
-            array_shift($aPathInfo);
-            while ($aPathInfo && is_array($aPathInfo)) {
-                $uri_segment[$aPathInfo[0]] = $aPathInfo[1];
-                array_shift($aPathInfo);
-                array_shift($aPathInfo);
-            }
-        }
-
+        //
+        $action = isset($_GET['m']) ? $_GET['m'] : 'index';
+        $controller = isset($_GET['c']) ? $_GET['c'] : 'Home';
         $controllers = Libs_Conf::get('route_map', 'ps');
         $controller = isset($controllers[$controller]) ? $controllers[$controller] : 'Home';
-        $action = $action ? $action : 'index';
         $controller_file = ROOT_PATH . '/controllers/' . $controller . '.php';
+
+
+//        if (strpos($uri_info, '?')) {
+//            $uri_info = Libs_Tools::leftString('?', $uri_info);
+//        }
+//        $GLOBALS['request_uri_info'] = $uri_info;
+//        $uri_segment = [];
+//
+//        if ($uri_info) {
+//            $uri_info = rtrim($uri_info, "/") . "/";    // 无论是否/结尾,统一按照/结尾
+//            $aPathInfo = explode('/', trim($uri_info, "/"));    // 获取 pathinfo
+//            $controller = (isset($aPathInfo[0]) ? $aPathInfo[0] : 'home');    // 获取 control
+//            array_shift($aPathInfo);
+//            $action = (isset($aPathInfo[0]) ? $aPathInfo[0] : 'index');   // 获取 action
+//            array_shift($aPathInfo);
+//            while ($aPathInfo && is_array($aPathInfo)) {
+//                $uri_segment[$aPathInfo[0]] = $aPathInfo[1];
+//                array_shift($aPathInfo);
+//                array_shift($aPathInfo);
+//            }
+//        }
+//
+//        $controllers = Libs_Conf::get('route_map', 'ps');
+//        $controller = isset($controllers[$controller]) ? $controllers[$controller] : 'Home';
+//        $action = $action ? $action : 'index';
+//        $controller_file = ROOT_PATH . '/controllers/' . $controller . '.php';
         $is_ctr_files = false;
         foreach (glob(ROOT_PATH . '/controllers/' . "*.php") as $filename) {
             if (basename($filename, '.php') == $controller) {
@@ -172,9 +181,10 @@ class Libs_SwWs {
 //        }
 
         $class_name = $controller;
-        $data['uri_segment'] = $uri_segment;
+//        $data['uri_segment'] = $uri_segment;
 //        $data['current_user_info'] = $user_info;
 //        $GLOBALS['uid'] = isset($user_info['uid']) ? $user_info['uid'] : 0;
+        $data = '';
         $o = new $class_name($data);
         if (!method_exists($o, $action)) {
             echo $ps_api->responseError(10001);
@@ -207,7 +217,7 @@ class Libs_SwWs {
     {
 
         // 分发 task 任务机制，让不同的任务 走不同的逻辑
-        $obj = Task_Swoole::class;
+        $obj = new Task_Swoole();
 
         $method = $data['method'];
         $flag = $obj->$method($data['data'], $serv);
@@ -280,9 +290,9 @@ class Libs_SwWs {
             $logs .= $key . ":" . $value . " ";
         }
 
-        swoole_async_writefile(APP_PATH . '../runtime/log/' . date("Ym") . "/" . date("d") . "_access.log", $logs . PHP_EOL, function ($filename) {
-            // todo
-        }, FILE_APPEND);
+//        swoole_async_writefile(APP_PATH . '../runtime/log/' . date("Ym") . "/" . date("d") . "_access.log", $logs . PHP_EOL, function ($filename) {
+//             todo
+//        }, FILE_APPEND);
 
     }
 }

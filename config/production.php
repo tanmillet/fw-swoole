@@ -4,7 +4,7 @@
  */
 return [
 
-    'DEBUG' => false,
+    'DEBUG' => true,
     'LOG_DIR' => '/data/log/project',
     'LOG_DIR_PREFIX' => 'swoole_log',
 

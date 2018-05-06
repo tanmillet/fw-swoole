@@ -31,7 +31,7 @@ class Task_Swoole {
      */
     public function pushLive($data, $serv)
     {
-        $clients = Libs_Predis::getInstance()->sMembers(config("redis.live_game_key"));
+        $clients = Libs_Predis::getInstance()->sMembers(Libs_Conf::get("live_game_key","redis"));
 
         foreach ($clients as $fd) {
             $serv->push($fd, json_encode($data));
