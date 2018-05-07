@@ -144,32 +144,30 @@ class Libs_SwWs {
      */
     public function onOpen($ws, $request)
     {
+//        Array
+//        (
+//            [websocket_status] => 3
+//    [server_port] => 9988
+//    [server_fd] => 3
+//    [socket_type] => 1
+//    [remote_port] => 52902
+//    [remote_ip] => 127.0.0.1
+//    [reactor_id] => 1
+//    [connect_time] => 1525689401
+//    [last_time] => 1525689401
+//    [close_errno] => 0
+//)
         $fdinfo = $ws->connection_info($request->fd);
-        print_r($fdinfo);
-
-//        echo PHP_EOL;
-
-//        print_r($ws->ports);
-
-//        echo PHP_EOL;
-
-        echo '------------------------', PHP_EOL;
-
-        foreach ($ws->ports as $ports) {
-//            print_r($ports);
-//            echo PHP_EOL;
-//            print_r($request->fd);
-//            echo PHP_EOL;
-            switch ($ports->port) {
-                case self::PORT:
-                    Libs_Predis::getInstance()->sAdd(Libs_Conf::get('live_game_key', 'redis'), $request->fd);
-                    break;
-                case self::CHART_PORT:
-                    Libs_Predis::getInstance()->sAdd(Libs_Conf::get('chart_game_key', 'redis'), $request->fd);
-                    break;
-                default:
-                    break;
-            }
+        $port = isset($fdinfo['server_port']) ? $fdinfo['server_port'] : 0;
+        switch ($port) {
+            case self::PORT:
+                Libs_Predis::getInstance()->sAdd(Libs_Conf::get('live_game_key', 'redis'), $request->fd);
+                break;
+            case self::CHART_PORT:
+                Libs_Predis::getInstance()->sAdd(Libs_Conf::get('chart_game_key', 'redis'), $request->fd);
+                break;
+            default:
+                break;
         }
     }
 
