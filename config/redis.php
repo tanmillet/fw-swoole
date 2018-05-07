@@ -7,5 +7,6 @@ return [
     'port' => 6379,
     'out_time' => 120,
     'time_out' => 5, // 超时时间
-    'live_game_key' => 'live_game_key'
+    'live_game_key' => 'live_game_key',
+    'chart_game_key' => 'chart_game_key',
 ];
