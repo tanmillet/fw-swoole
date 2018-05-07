@@ -144,6 +144,17 @@ class Libs_SwWs {
      */
     public function onOpen($ws, $request)
     {
+
+        print_r($ws);
+
+        echo PHP_EOL;
+
+        print_r($ws->ports);
+
+        echo PHP_EOL;
+
+        echo '------------------------', PHP_EOL;
+
         foreach ($ws->ports as $ports) {
             print_r($ports);
             echo PHP_EOL;
