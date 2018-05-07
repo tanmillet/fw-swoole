@@ -12,6 +12,7 @@ class Libs_SwWs {
     {
         // 获取 key 有值 del
         $this->ws = new swoole_websocket_server(self::HOST, self::PORT);
+        //开启第二个端口进行监听
         $this->ws->listen(self::HOST, self::CHART_PORT, SWOOLE_SOCK_TCP);
 
         $this->ws->set(
@@ -50,22 +51,7 @@ class Libs_SwWs {
      */
     public function onWorkerStart($server, $worker_id)
     {
-
         require '../index.php';
-//        define('ROOT_PATH', dirname(__FILE__));
-//        define('DS', DIRECTORY_SEPARATOR);
-//        define('SYS_PATH', 'sys' . DS);
-//        require_once(SYS_PATH . 'sys.init.php');
-//        Sys_Init::init();
-//        require_once(ROOT_PATH . DS . 'helper.php');
-//        //获取上下文执行环境
-//        define('ENV', Libs_Conf::get('ENV', 'app'));
-//        define('ENV_FILE', Libs_Conf::get('ENV', 'app'));
-//        date_default_timezone_set('Asia/Shanghai');
-//        ini_set('default_charset', "utf-8");
-//        //开发环境开启异常
-//        (Libs_Conf::get('DEBUG', ENV_FILE)) ? ini_set('display_error', 'On') : ini_set('display_error', 'Off');
-//        set_exception_handler('bgnException');
     }
 
     /**
@@ -158,6 +144,7 @@ class Libs_SwWs {
      */
     public function onOpen($ws, $request)
     {
+        print_r($ws);
         Libs_Predis::getInstance()->sAdd(Libs_Conf::get('live_game_key', 'redis'), $request->fd);
     }
 

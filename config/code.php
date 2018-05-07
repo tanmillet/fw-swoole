@@ -7,6 +7,8 @@
  */
 
 return [
+    'success' => 1,
+    'error' => 0,
     'err_code' =>
         [
             10001 => "请求的api不存在",
