@@ -18,8 +18,8 @@ class Libs_SwWs {
         $this->ws->set(
             [
                 'enable_static_handler' => true,
-//                'document_root' => "/apps/ws/fw-swoole/public/static",
-                'document_root' => "/ws/soft/app/fw-swoole/public/static",
+                'document_root' => "/apps/ws/fw-swoole/public/static",
+//                'document_root' => "/ws/soft/app/fw-swoole/public/static",
                 'worker_num' => 4,
                 'task_worker_num' => 4,
             ]
@@ -99,6 +99,7 @@ class Libs_SwWs {
         ob_start();
 
         $action = isset($_GET['m']) ? $_GET['m'] : 'index';
+
         $controller = isset($_GET['c']) ? $_GET['c'] : 'home';
         $controllers = Libs_Conf::get('route_map', 'ps');
         $controller = 'Ctrs_' . (isset($controllers[$controller]) ? $controllers[$controller] : 'Home');
@@ -157,8 +158,16 @@ class Libs_SwWs {
 //    [last_time] => 1525689401
 //    [close_errno] => 0
 //)
-        $fdinfo = $ws->connection_info($request->fd);
-        $port = isset($fdinfo['server_port']) ? $fdinfo['server_port'] : 0;
+
+//        print_r($ws);
+//        foreach ($ws->ports[1]->connections as $fd) {
+//
+//            echo $fd . PHP_EOL;
+//            $_POST['http_server']->push($fd, json_encode($data));
+//        }
+//        print_r($ws);
+        $fd_info = $ws->connection_info($request->fd);
+        $port = isset($fd_info['server_port']) ? $fd_info['server_port'] : 0;
         switch ($port) {
             case self::PORT:
                 Libs_Predis::getInstance()->sAdd(Libs_Conf::get('live_game_key', 'redis'), $request->fd);
