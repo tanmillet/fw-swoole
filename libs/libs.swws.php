@@ -50,20 +50,22 @@ class Libs_SwWs {
      */
     public function onWorkerStart($server, $worker_id)
     {
-        define('ROOT_PATH', dirname(__FILE__));
-        define('DS', DIRECTORY_SEPARATOR);
-        define('SYS_PATH', 'sys' . DS);
-        require_once(SYS_PATH . 'sys.init.php');
-        Sys_Init::init();
-        require_once(ROOT_PATH . DS . 'helper.php');
-        //获取上下文执行环境
-        define('ENV', Libs_Conf::get('ENV', 'app'));
-        define('ENV_FILE', Libs_Conf::get('ENV', 'app'));
-        date_default_timezone_set('Asia/Shanghai');
-        ini_set('default_charset', "utf-8");
-        //开发环境开启异常
-        (Libs_Conf::get('DEBUG', ENV_FILE)) ? ini_set('display_error', 'On') : ini_set('display_error', 'Off');
-        set_exception_handler('bgnException');
+
+        require '../index.php';
+//        define('ROOT_PATH', dirname(__FILE__));
+//        define('DS', DIRECTORY_SEPARATOR);
+//        define('SYS_PATH', 'sys' . DS);
+//        require_once(SYS_PATH . 'sys.init.php');
+//        Sys_Init::init();
+//        require_once(ROOT_PATH . DS . 'helper.php');
+//        //获取上下文执行环境
+//        define('ENV', Libs_Conf::get('ENV', 'app'));
+//        define('ENV_FILE', Libs_Conf::get('ENV', 'app'));
+//        date_default_timezone_set('Asia/Shanghai');
+//        ini_set('default_charset', "utf-8");
+//        //开发环境开启异常
+//        (Libs_Conf::get('DEBUG', ENV_FILE)) ? ini_set('display_error', 'On') : ini_set('display_error', 'Off');
+//        set_exception_handler('bgnException');
     }
 
     /**
