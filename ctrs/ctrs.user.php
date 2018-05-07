@@ -1,6 +1,9 @@
 <?php
 
-class PsUser extends PsApi {
+/**
+ * Class Ctrs_Home
+ */
+class Ctrs_User extends Sys_Ctr {
 
     public function login()
     {
@@ -100,5 +103,4 @@ class PsUser extends PsApi {
         echo apiReturnSuccess();
         die();
     }
-
 }

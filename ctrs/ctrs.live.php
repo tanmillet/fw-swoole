@@ -1,11 +1,14 @@
 <?php
 
-class Live extends PsApi {
+/**
+ * Class Ctrs_Home
+ */
+class Ctrs_Live {
 
     public function push()
     {
         if (empty($_GET)) {
-            return $this->setStatusCode(400)->responseError('10017');
+            return Libs_Tools::show(400, 'failure');
         }
         // admin
         // token    md5(content)
@@ -36,7 +39,7 @@ class Live extends PsApi {
             'data' => $data
         ];
         $_POST['http_server']->task($taskData);
-        return $this->setStatusCode(200)->responseSuccess('OK');
-    }
 
+        return Libs_Tools::show(200, 'success');
+    }
 }

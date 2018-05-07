@@ -4,7 +4,7 @@
  * Class Sys_Init
  */
 final class Sys_Init {
-    private static $_root_paths = ['config', 'public', 'sys', 'models', 'sdk', 'libs', 'sw', 'task'];
+    private static $_root_paths = ['config', 'public', 'sys', 'models', 'sdk', 'libs', 'sw', 'task','ctrs'];
     private static $_files = [];
     private static $_ext = '.php';
     private static $_init = false;
