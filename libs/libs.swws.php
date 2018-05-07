@@ -144,8 +144,8 @@ class Libs_SwWs {
      */
     public function onOpen($ws, $request)
     {
-
-        print_r($ws->connections);
+        $fdinfo = $ws->connection_info($request->fd);
+        print_r($fdinfo);
 
 //        echo PHP_EOL;
 
