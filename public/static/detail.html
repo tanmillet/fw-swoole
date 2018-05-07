@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="./assert/iconfont/iconfont.css">
 	<link rel="shortcut icon" href="./favicon.ico">
 	<script src="./js/jquery-3.3.1.min.js"></script>
+	<script src="./js/live.js"></script>
+	<script src="./js/chart.js"></script>
 	<style>
 		/*详情界面保持上部分静止，下面滚动; 同样利用flex布局 poster自然高度， tab-nav自然高度， tab-block填满剩余部分*/
 		.poster {
@@ -457,21 +459,7 @@
 		</div>
 	</div>
 	<script>
-        var wsServer = 'ws://127.0.0.1:9988';
-        var websocket = new WebSocket(wsServer);
-        websocket.onopen = function (evt) {
-            websocket.send('hello chris');
-            console.log("Connected to WebSocket server.");
-        };
-        websocket.onclose = function (evt) {
-            console.log("Disconnected");
-        };
-        websocket.onmessage = function (evt) {
-            console.log('Retrieved data from server: ' + evt.data);
-        };
-        websocket.onerror = function (evt, e) {
-            console.log('Error occured: ' + evt.data);
-        };
+
 
 		$(function () {
 			var $nav = $('.tab-nav div');
