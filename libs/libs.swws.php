@@ -145,24 +145,23 @@ class Libs_SwWs {
     public function onOpen($ws, $request)
     {
 
-        print_r($ws);
+        print_r($ws->connections);
 
-        echo PHP_EOL;
+//        echo PHP_EOL;
 
-        print_r($ws->ports);
+//        print_r($ws->ports);
 
-        echo PHP_EOL;
+//        echo PHP_EOL;
 
         echo '------------------------', PHP_EOL;
 
         foreach ($ws->ports as $ports) {
-            print_r($ports);
-            echo PHP_EOL;
-            print_r($request->fd);
-            echo PHP_EOL;
+//            print_r($ports);
+//            echo PHP_EOL;
+//            print_r($request->fd);
+//            echo PHP_EOL;
             switch ($ports->port) {
                 case self::PORT:
-                    echo
                     Libs_Predis::getInstance()->sAdd(Libs_Conf::get('live_game_key', 'redis'), $request->fd);
                     break;
                 case self::CHART_PORT:
