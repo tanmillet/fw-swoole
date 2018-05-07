@@ -2,6 +2,7 @@ var wsServer = 'ws://127.0.0.1:9988';
 var websocket = new WebSocket(wsServer);
 websocket.onopen = function (evt) {
     websocket.send('hello chris');
+    push_live(evt.data)
     console.log("Connected to WebSocket server.");
 };
 websocket.onclose = function (evt) {
@@ -13,3 +14,7 @@ websocket.onmessage = function (evt) {
 websocket.onerror = function (evt, e) {
     console.log('Error occured: ' + evt.data);
 };
+
+function push_live(data) {
+    console.log(data);
+}
