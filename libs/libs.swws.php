@@ -51,7 +51,7 @@ class Libs_SwWs {
      */
     public function onWorkerStart($server, $worker_id)
     {
-        include '../index.php';
+        require '../index.php';
     }
 
     /**
