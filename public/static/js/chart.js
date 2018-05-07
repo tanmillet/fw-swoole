@@ -16,5 +16,5 @@ websocket.onerror = function (evt, e) {
 };
 
 function push_chart(data) {
-
+    console.log(data);
 }

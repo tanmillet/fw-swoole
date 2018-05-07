@@ -7,6 +7,7 @@ return [
         'user' => 'User',
         'home' => 'Home',
         'live' => 'Live',
+        'chart' => 'Chart',
     ],
     'no_need_check_session' => [
         'User' => [
