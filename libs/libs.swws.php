@@ -144,7 +144,9 @@ class Libs_SwWs {
      */
     public function onOpen($ws, $request)
     {
-        print_r( $ws->ports);
+        foreach ($ws->ports as $ports) {
+            echo $ports['port'] . PHP_EOL;
+        }
         Libs_Predis::getInstance()->sAdd(Libs_Conf::get('live_game_key', 'redis'), $request->fd);
         Libs_Predis::getInstance()->sAdd(Libs_Conf::get('chart_game_key', 'redis'), $request->fd);
     }
