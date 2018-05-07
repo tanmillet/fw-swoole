@@ -132,19 +132,10 @@ class Libs_SwWs {
      */
     public function onTask($serv, $taskId, $workerId, $data)
     {
-
         // 分发 task 任务机制，让不同的任务 走不同的逻辑
         $obj = new Task_Swoole();
-
         $method = $data['method'];
         $flag = $obj->$method($data['data'], $serv);
-        /*$obj = new app\common\lib\ali\Sms();
-        try {
-            $response = $obj::sendSms($data['phone'], $data['code']);
-        }catch (\Exception $e) {
-            // todo
-            echo $e->getMessage();
-        }*/
 
         return $flag; // 告诉worker
     }
@@ -189,7 +180,7 @@ class Libs_SwWs {
     public function onClose($ws, $fd)
     {
         Libs_Predis::getInstance()->sRem(Libs_Conf::get('live_game_key', 'redis'), $fd);
-        echo "clientid:{$fd}\n";
+        echo "clientid : {$fd}   be closed\n";
     }
 
     /**
