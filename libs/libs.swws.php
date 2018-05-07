@@ -145,10 +145,17 @@ class Libs_SwWs {
     public function onOpen($ws, $request)
     {
         foreach ($ws->ports as $ports) {
-            print_r($ports->port);
+            switch ($ports->port) {
+                case self::PORT:
+                    Libs_Predis::getInstance()->sAdd(Libs_Conf::get('live_game_key', 'redis'), $request->fd);
+                    break;
+                case self::CHART_PORT:
+                    Libs_Predis::getInstance()->sAdd(Libs_Conf::get('chart_game_key', 'redis'), $request->fd);
+                    break;
+                default:
+                    break;
+            }
         }
-        Libs_Predis::getInstance()->sAdd(Libs_Conf::get('live_game_key', 'redis'), $request->fd);
-        Libs_Predis::getInstance()->sAdd(Libs_Conf::get('chart_game_key', 'redis'), $request->fd);
     }
 
     /**
