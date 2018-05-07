@@ -177,6 +177,7 @@ class Libs_SwWs {
     public function onClose($ws, $fd)
     {
         Libs_Predis::getInstance()->sRem(Libs_Conf::get('live_game_key', 'redis'), $fd);
+        Libs_Predis::getInstance()->sRem(Libs_Conf::get('chart_game_key', 'redis'), $fd);
         echo "clientid : {$fd}   be closed\n";
     }
 
