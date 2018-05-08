@@ -18,8 +18,8 @@ class Libs_SwWs {
         $this->ws->set(
             [
                 'enable_static_handler' => true,
-                'document_root' => "/apps/ws/fw-swoole/public/static",
-//                'document_root' => "/ws/soft/app/fw-swoole/public/static",
+//                'document_root' => "/apps/ws/fw-swoole/public/static",
+                'document_root' => "/ws/soft/app/fw-swoole/public/static",
                 'worker_num' => 4,
                 'task_worker_num' => 4,
             ]
