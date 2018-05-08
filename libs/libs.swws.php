@@ -39,6 +39,11 @@ class Libs_SwWs {
 
     /**
      * @param $server
+     * @process 进程别名
+     * 平滑重启只对onWorkerStart或onReceive等在Worker进程中include/require的PHP文件有效，
+     * Server启动前就已经include/require的PHP文件，不能通过平滑重启重新加载
+     * 对于Server的配置即$serv->set()中传入的参数设置，必须关闭/重启整个Server才可以重新加载
+     * Server可以监听一个内网端口，然后可以接收远程的控制命令，去重启所有worker
      */
     public function onStart($server)
     {
