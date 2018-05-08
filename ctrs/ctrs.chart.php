@@ -1,3 +1,4 @@
+
 <?php
 
 class Ctrs_Chart {
