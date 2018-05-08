@@ -93,13 +93,20 @@ class Libs_SwWs {
             }
         }
         //保存swoole_server 对象
-        $this->writeLog();
+//        $this->writeLog();
+        $datas = array_merge(['date' => date("Ymd H:i:s")], $_GET, $_POST, $_SERVER);
+        $logs = "";
+        foreach ($datas as $key => $value) {
+            $logs .= $key . ":" . $value . " ";
+        }
+        swoole_async_writefile(date("d") . "_access.log", $logs . PHP_EOL, function ($filename) {
+        }, FILE_APPEND);
+
         $_POST['http_server'] = $this->ws;
 
         ob_start();
 
         $action = isset($_GET['m']) ? $_GET['m'] : 'index';
-
         $controller = isset($_GET['c']) ? $_GET['c'] : 'home';
         $controllers = Libs_Conf::get('route_map', 'ps');
         $controller = 'Ctrs_' . (isset($controllers[$controller]) ? $controllers[$controller] : 'Home');
