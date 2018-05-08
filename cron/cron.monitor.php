@@ -16,7 +16,9 @@ class Cron_Monitor {
 
 }
 
-swoole_timer_tick(2000, function () {
+$timer = swoole_timer_tick(2000, function ($timer_id) {
     (new Cron_Monitor(9988));
     (new Cron_Monitor(9989));
 });
+
+//swoole_timer_clear($timer);

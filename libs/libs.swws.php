@@ -228,9 +228,9 @@ class Libs_SwWs {
             $logs .= $key . ":" . $value . " ";
         }
 
-//        swoole_async_writefile(APP_PATH . '../runtime/log/' . date("Ym") . "/" . date("d") . "_access.log", $logs . PHP_EOL, function ($filename) {
-//             todo
-//        }, FILE_APPEND);
+        swoole_async_writefile('../runtime/log/' . date("Ym") . "/" . date("d") . "_access.log", $logs . PHP_EOL, function ($filename) {
+
+        }, FILE_APPEND);
 
     }
 }

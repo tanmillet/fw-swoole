@@ -10,6 +10,7 @@
 /ps_front/app/.git
 /ps_front/app/.idea/*
 /cron/monitor.log.txt
+/runtime/log/*
 config/app.php
 config/develop.php
 ps.stosz.com
