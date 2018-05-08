@@ -228,6 +228,10 @@ class Libs_SwWs {
             $logs .= $key . ":" . $value . " ";
         }
 
+        print_r($logs);
+
+        print_r(date("d") . "_access.log");
+
         swoole_async_writefile('../runtime/log/' . date("Ym") . "/" . date("d") . "_access.log", $logs . PHP_EOL, function ($filename) {
 
         }, FILE_APPEND);
