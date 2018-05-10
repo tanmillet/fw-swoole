@@ -21,7 +21,7 @@ class Ctrs_Chart {
         foreach ($clients as $fd) {
             $_POST['http_server']->push($fd, json_encode($data));
         }
-        //  todo
+        //  todo6
 //        foreach ($_POST['http_server']->ports[1]->connections as $fd) {
 //            $_POST['http_server']->push($fd, json_encode($data));
 //        }
