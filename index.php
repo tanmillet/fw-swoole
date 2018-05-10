@@ -16,7 +16,7 @@ define('ENV', Libs_Conf::get('ENV', 'app'));
 define('ENV_FILE', Libs_Conf::get('ENV', 'app'));
 
 //开发环境开启异常
-//(Libs_Conf::get('DEBUG', ENV_FILE)) ? ini_set('display_error', 'On') : ini_set('display_error', 'Off');
+(Libs_Conf::get('DEBUG', ENV_FILE)) ? ini_set('display_error', 'On') : ini_set('display_error', 'Off');
 //if (!get_magic_quotes_gpc()) {
 //    $_GET = addslashes_deep($_GET);
 //    $_POST = addslashes_deep($_POST);

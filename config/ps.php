@@ -8,6 +8,7 @@ return [
         'home' => 'Home',
         'live' => 'Live',
         'chart' => 'Chart',
+        'im' => 'Im',
     ],
     'no_need_check_session' => [
         'User' => [

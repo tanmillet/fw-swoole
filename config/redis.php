@@ -9,4 +9,5 @@ return [
     'time_out' => 5, // 超时时间
     'live_game_key' => 'live_game_key',
     'chart_game_key' => 'chart_game_key',
+    'im_key' => 'im_key',
 ];
