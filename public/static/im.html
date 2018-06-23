@@ -290,7 +290,7 @@
                 <span>~~ welcome to chris im ~~</span>
             </div>
             <div class="comment-form">
-                <input type="text" placeholder="别憋着，说点啥~~ 回车既发射" id="discuss-box"></input>
+                <input type="text" placeholder="别憋着，说点啥~~ 回车既发射" id="discuss-box" />
             </div>
         </div>
     </div>
@@ -300,7 +300,7 @@
 <script>
     $(function () {
         $("#discuss-box").keydown(function (event) {
-            if (event.keyCode == 13) {
+            if (event.keyCode === 13) {
                 var text = $(this).val();
                 var url = 'http://127.0.0.1:9960?c=im&m=index';
                 var data = {'content': text};
