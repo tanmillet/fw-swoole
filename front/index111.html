@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>监控系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-ie6.css">
+    <![endif]-->
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/ie.css">
+    <![endif]-->
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+    </style>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!-- <div style="background-color: #ccc;height:50px;width:940px;margin:auto;"></div> -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="javascript:void(0)">msoa-monitor</a>
+            <div class="nav-collapse collapse">
+                <form class="navbar-form pull-right">
+                    <input class="span2" type="text" placeholder="Loginid">
+                    <input class="span2" type="password" placeholder="Password">
+                    <button type="submit" class="btn">Sign in</button>
+                </form>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <h1 style="font-weight: lighter">msoa</h1>
+    <div id="logger">
+        <label style="color: #3a87ad;font-size:16px"> 日志信息：<span style="font-size: 8px;color: #0e0e0e">Hello 正常记录信息.</span></label>
+        <label style="color:#b94a48;font-size:16px"> 错误信息：<span
+                style="font-size: 8px;font-weight:bolder;">Hello 错误提示信息.</span></label>
+        <label style="color:#468847;font-size:16px"> 警告信息：<span
+                style="font-size: 8px;font-weight:bolder;">Hello 警告提示信息.</span></label>
+    </div>
+    <hr>
+    <footer>
+        <p>© Chris 2018</p>
+    </footer>
+</div> <!-- /container -->
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<!--[if lte IE 6]>
+<script type="text/javascript" src="js/bootstrap-ie.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+            if ($.isFunction($.bootstrapIE6)) $.bootstrapIE6($(document));
+        });
+    })(jQuery);
+
+    let wsServer = 'ws://192.168.105.112:9960';
+    let websocket = new WebSocket(wsServer);
+    websocket.onopen = function (evt) {
+        websocket.send('hello chris 9960');
+        console.log("Connected 9960 to WebSocket server.");
+    };
+    websocket.onclose = function (evt) {
+        console.log("Disconnected");
+    };
+    websocket.onmessage = function (evt) {
+        push_live(evt.data);
+        console.log('Retrieved data from server live : ' + evt.data);
+    };
+    websocket.onerror = function (evt, e) {
+        console.log('Error occured: ' + evt.data);
+    };
+
+    function push_live(data) {
+        if (typeof data == 'string') {
+            try {
+                var obj = JSON.parse(data);
+                if (typeof obj == 'object' && obj) {
+                    let html = '';
+                    if (obj.type == 'info') {
+                        html += '<label style="color: #3a87ad;font-size:16px">日志信息：<span style="font-size: 8px;color: #0e0e0e">' + obj.msg + '.</span></label>';
+                    } else if (obj.type == 'warn') {
+                        html += ' <label  style="color:#468847;font-size:16px"> 警告信息：<span style="font-size: 8px;">' + obj.msg + '.</span></label>';
+                    } else if (obj.type == 'error') {
+                        html += ' <label  style="color:#b94a48;font-size:16px"> 错误信息：<span style="font-size: 8px;">' + obj.msg + '.</span></label>';
+                    } else {
+
+                    }
+                    $("#logger").prepend(html);
+                } else {
+                    return false;
+                }
+            } catch (e) {
+                console.log('error：' + data + '!!!' + e);
+                return false;
+            }
+        }
+    }
+
+</script>
+
+</body>
+</html>
